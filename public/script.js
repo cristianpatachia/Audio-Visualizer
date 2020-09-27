@@ -1,27 +1,27 @@
 const volume = document.getElementById("volume");
 const bass = document.getElementById("bass");
 const mid = document.getElementById("mid");
-const trebble = document.getElementById("trebble");
+const treble = document.getElementById("treble");
 const visualizer = document.getElementById("visualizer");
 
 const context = new AudioContext();
-const analyserNode = new AnalyserNode(context, { fftSize: 256 });
+const analyserNode = new AnalyserNode(context, { fftSize: 512 });
 const gainNode = new GainNode(context, { gain: volume.value });
 const bassEQ = new BiquadFilterNode(context, {
   type: "lowshelf",
-  frequency: 200,
+  frequency: 220,
   gain: bass.value,
 });
 const midEQ = new BiquadFilterNode(context, {
   type: "peaking",
   Q: Math.SQRT1_2,
-  frequency: 440,
+  frequency: 680,
   gain: mid.value,
 });
-const trebbleEQ = new BiquadFilterNode(context, {
+const trebleEQ = new BiquadFilterNode(context, {
   type: "highshelf",
-  frequency: 600,
-  gain: trebble.value,
+  frequency: 920,
+  gain: treble.value,
 });
 
 setupEventListeners();
@@ -47,9 +47,9 @@ function setupEventListeners() {
     midEQ.gain.setTargetAtTime(value, context.currentTime, 0.005);
   });
 
-  trebble.addEventListener("input", (e) => {
+  treble.addEventListener("input", (e) => {
     const value = parseInt(e.target.value);
-    trebbleEQ.gain.setTargetAtTime(value, context.currentTime, 0.005);
+    trebleEQ.gain.setTargetAtTime(value, context.currentTime, 0.005);
   });
 }
 
@@ -62,7 +62,7 @@ async function setupContext() {
   source
     .connect(bassEQ)
     .connect(midEQ)
-    .connect(trebbleEQ)
+    .connect(trebleEQ)
     .connect(gainNode)
     .connect(analyserNode)
     .connect(context.destination);
@@ -90,13 +90,13 @@ function drawVisualizer() {
   const barWidth = width / bufferLength;
 
   const canvasContext = visualizer.getContext("2d");
-  canvasContext.clearRect(0, 0, width, height); 
+  canvasContext.clearRect(0, 0, width, height);
 
   dataArray.forEach((item, index) => {
-    const y = 1 + ((item / 255) * height) / 2;
+    const y = 0.5 + ((item / 255) * height) / 2.05;
     const x = barWidth * index;
 
-    let color = `hsl(${(y / height - 360) * 450}, 100%, 50%)`;
+    let color = `hsl(${(y / height) * 415}, 100%, 50%)`;
 
     canvasContext.fillStyle = color;
     canvasContext.fillRect(x, height / 2, barWidth / 2, y);

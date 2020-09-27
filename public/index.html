@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>CP Audio Visualizer</title>
     <script src="script.js" defer></script>
 
     <style>
@@ -45,17 +45,18 @@
       #volume,
       #bass,
       #mid,
-      #trebble {
+      #treble {
         -webkit-appearance: none;
         height: 3px;
         outline: none;
         border-radius: 50%;
+        cursor: pointer;
       }
 
       #volume::-webkit-slider-thumb,
       #bass::-webkit-slider-thumb,
       #mid::-webkit-slider-thumb,
-      #trebble::-webkit-slider-thumb {
+      #treble::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
         width: 12px;
@@ -81,8 +82,8 @@
       <input type="range" min="-15" max="15" value="0" id="bass" />
       <label for="volume">Mid</label>
       <input type="range" min="-15" max="15" value="0" id="mid" />
-      <label for="volume">Trebble</label>
-      <input type="range" min="-15" max="15" value="0" id="trebble" />
+      <label for="volume">Treble</label>
+      <input type="range" min="-15" max="15" value="7.5" id="treble" />
     </div>
   </body>
 </html>
