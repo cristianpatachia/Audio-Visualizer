@@ -90,7 +90,7 @@ function drawVisualizer() {
   const barWidth = width / bufferLength;
 
   const canvasContext = visualizer.getContext("2d");
-  canvasContext.clearRect(0, 0, width, height); /// range on screen
+  canvasContext.clearRect(0, 0, width, height); 
 
   dataArray.forEach((item, index) => {
     const y = 1 + ((item / 255) * height) / 2;
